@@ -17,15 +17,15 @@ int main()
 
         while (1)
         {
-            tcp::socket socket(io);
-            acceptor.accept(socket);
+            tcp::socket s(io);
+            acceptor.accept(s);
 
             std::cout << "server: client connected\n";
 
             std::array<char, 1024> buf;
 
             asio::error_code ec;
-            std::size_t n = socket.read_some(asio::buffer(buf), ec);
+            std::size_t n = s.read_some(asio::buffer(buf), ec);
 
             if (ec == asio::error::eof)
             {
@@ -36,7 +36,7 @@ int main()
             if (ec)
                 throw asio::system_error(ec);
 
-            asio::write(socket, asio::buffer(buf.data(), n));
+            asio::write(s, asio::buffer(buf.data(), n));
         }
     }
     catch (const asio::system_error& e)
