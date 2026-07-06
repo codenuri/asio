@@ -14,13 +14,15 @@ int main()
 	std::string msg = "hello asio";
 	std::size_t n1 = asio::write(s, asio::buffer(msg));
 
+
 	// #3. 서버에서 보내준 데이터 수신
-	char buf[1024];
-	std::size_t n2 = s.read_some(  asio::buffer(buf));
-//	std::size_t n2 = asio::read(s, asio::buffer(buf, msg.size()));
+//	char buf[1024];
 
-	std::cout << "echo: " << std::string_view(buf, n2) << '\n';
+	std::array<char, 1024> buf;
+
+//	std::size_t n2 = asio::read(s, asio::buffer(buf, msg.size()));	// 1
+	std::size_t n2 = s.read_some(  asio::buffer(buf));				// 2
+
+
+	std::cout << "echo: " << std::string_view(buf.data(), n2) << '\n';
 }
-
-
-
