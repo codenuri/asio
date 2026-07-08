@@ -9,7 +9,7 @@ void on_write(const asio::error_code& ec, std::size_t bytes, tcp::socket& s, std
 
 void on_read(const asio::error_code& ec, std::size_t bytes, tcp::socket& s, std::array<char, 1024>& buf)
 {
-    asio::async_write(s, asio::buffer(buf), std::bind(on_write, _1, _2, std::ref(s), std::ref(buf)));
+    asio::async_write(s, asio::buffer(buf, bytes), std::bind(on_write, _1, _2, std::ref(s), std::ref(buf)));
 }
 
 void on_accept(const asio::error_code& ec, tcp::socket& s, std::array<char, 1024>& buf)
