@@ -16,7 +16,7 @@ void on_read(const asio::error_code& ec, std::size_t bytes)
 {
 	// 현재 상태 : 읽기 작업이 완료되어서 buf 에 데이터가 있음 
     // 핵심 : buf 에 있는 데이터를 client 에게 다시 전송 - 비동기 요청
-    asio::async_write(s, asio::buffer(buf), on_write);
+    asio::async_write(s, asio::buffer(buf, bytes), on_write);
 }
 
 void on_accept(const asio::error_code& ec)
