@@ -26,7 +26,7 @@ void on_read(const asio::error_code& ec, std::size_t bytes)
         return;
     }
     std::cout << "[on_read  ]: read  " << bytes << "bytes\n";
-    asio::async_write(s, asio::buffer(buf), on_write);
+    asio::async_write(s, asio::buffer(buf, bytes), on_write);
 }
 
 void on_accept(const asio::error_code& ec)
